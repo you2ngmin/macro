@@ -36,6 +36,6 @@ Selection.Delete SHIFT:=xlUp
 
 
 ActiveWorkbook.SaveAs ActiveWorkbook.Path & "\" & PONO & " LIST.XLSB", _
-        FileFormat:=xlExcel12, CreateBackup:=False
+        FileFormat:=xlExcel12, CreateBackup:=False '파일저장, 쉼표옵션 제거
 
 End Sub
