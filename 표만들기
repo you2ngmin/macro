@@ -1,0 +1,41 @@
+
+Sub 표만들기()
+
+'발주번호 저장
+Dim PONOL, CUTL, PONO As String
+        For K = 1 To 20
+        If InStr(Range("C" & K), "PO") Then PONOL = K
+        Next
+PONO = Range("D" & PONOL)
+
+'윗단 제거
+For K = 1 To 20
+        If InStr(Range("A" & K), "납 기 일") Then CUTL = K
+Next
+    Rows("1:" & CUTL).Select
+    Selection.Delete SHIFT:=xlUp
+'표만들기
+Dim Z As String
+Range("A1").CurrentRegion.Select
+ActiveSheet.ListObjects.Add(xlSrcRange, Selection, , xlYes).Name = "QW"
+Cells(Rows.Count, 1).End(3).Select
+Z = ActiveCell.EntireRow.Address
+Rows(Z).Select
+Selection.Delete SHIFT:=xlUp
+
+'표 불필요한부분 제거
+            Columns("A:K").Select
+            Columns("A:K").EntireColumn.AutoFit
+            Columns("B:B").Select '매출과목부분 삭제
+            Selection.Delete SHIFT:=xlToLeft
+            Columns("E:E").Select '단위 삭제
+            Selection.Delete SHIFT:=xlToLeft
+            Columns("G:H").Select '계약단가, 계약금액 삭제
+            Selection.Delete SHIFT:=xlToLeft
+
+
+
+ActiveWorkbook.SaveAs ActiveWorkbook.Path & "\" & PONO & " LIST.XLSB", _
+        FileFormat:=xlExcel12, CreateBackup:=False
+
+End Sub
