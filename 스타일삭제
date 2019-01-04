@@ -1,0 +1,46 @@
+Sub DeleteNames()
+
+Dim n As Name
+
+Dim lngCount As Long
+
+On Error Resume Next
+
+lngCount = ThisWorkbook.Names.Count
+
+For Each n In ThisWorkbook.Names
+
+    n.Visible = True
+
+    n.Delete
+
+Next n
+
+MsgBox "총 " & lngCount & "개의 [이름] 중, " & lngCount - ThisWorkbook.Names.Count & "개의 [이름] 삭제 완료."
+
+End Sub
+
+
+Sub DeleteStyles()
+
+'/ 첫번째 스타일이 삭제가 되지 않을 때 진행되지 않는 문제로
+
+'/ 마지막 스타일부터 삭제하는 방식으로 수정 (2009-11-20)
+
+Dim lng As Long
+
+Dim lngCount As Long
+
+lngCount = ThisWorkbook.Styles.Count
+
+On Error Resume Next
+
+For lng = ThisWorkbook.Styles.Count To 1 Step -1
+
+    ThisWorkbook.Styles(lng).Delete
+
+Next lng
+
+MsgBox "총 " & lngCount & "개의 [스타일] 중, " & lngCount - ThisWorkbook.Styles.Count & "개의 [스타일] 삭제 완료."
+
+End Sub
